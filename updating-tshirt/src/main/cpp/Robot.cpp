@@ -67,20 +67,22 @@ void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
   double deadzone = 0.4;
   //myRobot.ArcadeDrive(Xbox.GetY(frc::XboxController::JoystickHand(0)), XboxX, true);
-  double bozo = 0.0;
-  double hello = 0.0;
+  double controlX = 0.0;
+  double controlY = 0.0;
   if (IsOperatorControl() && IsEnabled()) {
     //myRobot.ArcadeDrive(XboxY, XboxX, true);
     //deadzone
     if(XboxX > deadzone || XboxX < -deadzone){
-      bozo = XboxX;
+      controlX = XboxX;
     }
     if(XboxY > deadzone || XboxY < -deadzone){
-      hello = XboxY;
+      controlY = XboxY;
     }
     myRobot.ArcadeDrive(hello, bozo, true);
-    if(Xbox.GetYButton()){
-      
+    if(Xbox.GetAButton()){
+    Tshirt.Set(frc::DoubleSolenoid::Value(2));
+    }else {
+      Tshirt.Set(frc::DoubleSolenoid::Value(1));
     }
   }
 }
